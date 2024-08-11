@@ -46,10 +46,16 @@ fun EditTaskDialog(
     onEditComplete: (String, String) -> Unit
 ) {
     var title by remember { mutableStateOf(initialTitle) }
-    var date by remember{ mutableStateOf(initialDate) }
+    var date by remember { mutableStateOf(initialDate) }
     val focusRequester = remember { FocusRequester() }
-    var showDialog by remember{ mutableStateOf(false) }
+    var showDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
+
+    DatePicker(
+        onConfirm = { newDate -> date = newDate },
+        onDismiss = { showDialog = false },
+        showDialog = showDialog
+    )
 
     AlertDialog(
         containerColor = colorResource(id = R.color.DarkSlate),
@@ -94,12 +100,13 @@ fun EditTaskDialog(
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween)
+                    horizontalArrangement = Arrangement.SpaceBetween
+                )
                 {
                     TextField(
                         modifier = Modifier.weight(1f),
                         value = date,
-                        onValueChange = {date = it},
+                        onValueChange = { date = it },
                         readOnly = true,
                         placeholder = { Text(text = "Schedule Task") }
                     )
@@ -109,7 +116,7 @@ fun EditTaskDialog(
                         modifier = Modifier
                             .size(30.dp)
                             .align(Alignment.CenterVertically)
-                    ){
+                    ) {
                         Icon(
                             imageVector = Icons.Default.DateRange,
                             contentDescription = "Schedule",
@@ -120,12 +127,6 @@ fun EditTaskDialog(
             }
         }
     )
-    if(showDialog){
-        DatePicker(onConfirm = {newDate->
-            date = newDate
-            showDialog = false
-        })
-    }
     LaunchedEffect(key1 = Unit) {
         focusRequester.requestFocus()
     }
