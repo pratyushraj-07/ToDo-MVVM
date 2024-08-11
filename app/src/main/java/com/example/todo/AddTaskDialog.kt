@@ -50,11 +50,12 @@ fun AddTaskDialog(
     var title by remember { mutableStateOf("") }
     val focusRequester = remember { FocusRequester() }
     //For Date picker...
-    var selectedDate by remember{ mutableStateOf("") }
-    var showDateDialog by remember{ mutableStateOf(false) }
-    //For Time picker...
-    //var selectedTime by remember{ mutableStateOf<String?>(null) }
-    //var showTimeDialog by remember{ mutableStateOf(false) }
+    var selectedDate by remember { mutableStateOf("") }
+    var showDateDialog by remember { mutableStateOf(false) }
+
+    DatePicker(onDismiss = { showDateDialog = false }, showDialog = showDateDialog,
+        onConfirm = { date -> selectedDate = date }
+    )
 
     AlertDialog(
         properties = DialogProperties(dismissOnClickOutside = false),
@@ -106,22 +107,23 @@ fun AddTaskDialog(
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween)
+                    horizontalArrangement = Arrangement.SpaceBetween
+                )
                 {
                     TextField(
                         modifier = Modifier.weight(1f),
                         value = selectedDate,
                         onValueChange = {},
                         readOnly = true,
-                        placeholder = { Text(text = "Schedule Date")}
+                        placeholder = { Text(text = "Schedule Date") }
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     IconButton(
-                        onClick = { showDateDialog = true },
+                        onClick = { showDateDialog = !showDateDialog },
                         modifier = Modifier
                             .size(30.dp)
                             .align(Alignment.CenterVertically)
-                    ){
+                    ) {
                         Icon(
                             imageVector = Icons.Default.DateRange,
                             contentDescription = "Schedule",
@@ -133,12 +135,6 @@ fun AddTaskDialog(
         }
     )
 
-    if(showDateDialog){
-        DatePicker(onConfirm = {date->
-            selectedDate = date
-            showDateDialog = false
-        })
-    }
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
     }
