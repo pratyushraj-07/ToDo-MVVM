@@ -65,12 +65,6 @@ dependencies {
     //Lottie
     implementation (libs.lottie.compose)
 
-    //Room
-    val room = "2.6.1"
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    kapt("androidx.room:room-compiler:$room")
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
