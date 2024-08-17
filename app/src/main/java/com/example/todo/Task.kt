@@ -1,17 +1,8 @@
-package com.example.todo.data
+package com.example.todo
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "task_table")
-data class TaskState(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    @ColumnInfo("task")
+data class Task(
+    val id: Long = 0,
     val task: String,
-    @ColumnInfo("date")
     val date: String = "",
-    @ColumnInfo("is_completed")
     var isCompleted: Boolean = false,
 )

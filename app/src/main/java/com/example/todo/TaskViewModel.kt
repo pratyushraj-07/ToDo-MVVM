@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 class TaskViewModel : ViewModel() {
 
-    private val _taskList = MutableStateFlow<List<TaskState>>(emptyList())
-    val taskList: StateFlow<List<TaskState>> = _taskList
+    private val _taskList = MutableStateFlow<List<Task>>(emptyList())
+    val taskList: StateFlow<List<Task>> = _taskList
 
     fun onEvent(event: TaskEvent) {
         when (event) {
@@ -59,7 +59,7 @@ class TaskViewModel : ViewModel() {
 
     private fun addTask(task: String, date: String) {
         val newId = (_taskList.value.maxOfOrNull { it.id } ?: 0) + 1
-        val newTask = TaskState(id = newId, task = task, date = date)
+        val newTask = Task(id = newId, task = task, date = date)
         _taskList.value += newTask
     }
 
